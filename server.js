@@ -1,10 +1,10 @@
-import express from 'express';
-import controllerRouting from './routes/index';
+const express = require('express');
+const routes = require('./routes');
 
 const exPort = process.env.PORT || 5000;
 const app = express();
 
-app.use(express.json());
+app.use('/', routes);
 
 controllerRouting(app);
 
