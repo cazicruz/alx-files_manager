@@ -2,10 +2,10 @@ const { MongoClient } = require('mongodb');
 
 class DBClient{
   constructor (){
-    this.host= process.env.DB_HOST || 'localhost';
-    this.port = process.env.DB_PORT || '27017';
-    this.uri = `mongodb://${this.host}:${this.port}`;
-    this.database = process.env.DB_DATABASE || 'files_manager';
+    const host= process.env.DB_HOST || 'localhost';
+    const port = process.env.DB_PORT || '27017';
+    const database = process.env.DB_DATABASE || 'files_manager';
+    const uri = `mongodb://${host}:${port}/${database}`;
     this.client = new MongoClient(this.uri);
   }
 
@@ -23,7 +23,7 @@ class DBClient{
     return 0;
   };
   try {
-    const db = this.client.db(database);
+    const db = this.client.db();
     const collection = db.collection('users');
     const count = await collection.countDocuments();
     return count;
@@ -38,7 +38,7 @@ class DBClient{
     return 0;
   };
   try {
-    const db = client.db(database);
+    const db = client.db();
     const collection = db.collection('files');
     const count = await collection.countDocuments();
     return count;
@@ -47,5 +47,23 @@ class DBClient{
     return 0;}
   };
 }
-const dbClient = new DBClient();
-module.exports = dbClient;
+
+/**
+   * Retrieves a reference to the `users` collection.
+   * @returns {Promise<Collection>}
+   */
+  async usersCollection() {
+    return this.client.db().collection('users');
+  }
+
+  /**
+   * Retrieves a reference to the `files` collection.
+   * @returns {Promise<Collection>}
+   */
+  async filesCollection() {
+    return this.client.db().collection('files');
+  }
+}
+
+export const dbClient = new DBClient();
+export default dbClient;
