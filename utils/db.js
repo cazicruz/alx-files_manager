@@ -8,15 +8,15 @@ class DBClient{
     const uri = `mongodb://${host}:${port}/${database}`;
     this.client = new MongoClient(this.uri);
   }
+    this.client.connect();
 
   function isAlive(){
-    this.client.connect((error) => {
-      if (error){
-        return false;
-      }
-      return true;
-    };
-  });
+    return this.client.isConnected();
+
+/**
+ * returns true if client is connected
+ */
+
   async nbUsers(){
   if (!this.isAlive){
     console.error('db not connected');
@@ -32,6 +32,10 @@ class DBClient{
     return 0;}
   };
 
+/**
+ * returns the number of files in the dsatabase
+ */
+
   async nbFiles(){
   if (!this.isAlive){
     console.error('db not connected');
@@ -46,10 +50,9 @@ class DBClient{
     console.error('Failed to retrieve the number of users:', error);
     return 0;}
   };
-}
 
 /**
-   * Retrieves a reference to the `users` collection.
+   * Retrieves a reference to the `users` collection
    * @returns {Promise<Collection>}
    */
   async usersCollection() {
@@ -57,7 +60,7 @@ class DBClient{
   }
 
   /**
-   * Retrieves a reference to the `files` collection.
+   * Retrieves a reference to the `files` collection
    * @returns {Promise<Collection>}
    */
   async filesCollection() {
