@@ -7,8 +7,9 @@ class DBClient{
     const database = process.env.DB_DATABASE || 'files_manager';
     const uri = `mongodb://${host}:${port}/${database}`;
     this.client = new MongoClient(this.uri);
-  }
     this.client.connect();
+  }
+
 
   function isAlive(){
     return this.client.isConnected();
