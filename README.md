@@ -1,4 +1,4 @@
-# holbertonschool-files_manager
+# alx-files_manager
 
 ## Learning Objectives
 
