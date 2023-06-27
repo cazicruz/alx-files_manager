@@ -6,7 +6,7 @@ const app = express();
 
 app.use('/', routes);
 
-controllerRouting(app);
+routes.controllerRouting(app);
 
 app.listen(exPort, () => {
   console.log(`Server running on port ${exPort}`);

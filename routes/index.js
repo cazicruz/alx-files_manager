@@ -9,10 +9,10 @@ function controllerRouting(app) {
   app.use('/', router);
 
   // GET /status
-router.get('/status', AppController.getStatus);
+  router.get('/status', AppController.getStatus);
 
-// GET /stats
-router.get('/stats', AppController.getStats);
+  // GET /stats
+  router.get('/stats', AppController.getStats);
 
   router.post('/users', (req, res) => {
     UsersController.postNew(req, res);
